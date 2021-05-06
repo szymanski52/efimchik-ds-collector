@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Inter|Nunito|Oswald|Roboto&display=swap" rel="stylesheet">
+    <title>SEMENАЛИЗАТОР</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    {% load bootstrap4 %}
+
+    <script src="{% bootstrap_jquery_url %}"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'efimchik_black_2.png' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: navy!important;">
+    <img src="{% static 'efimchik_in_circle.png' %}" class="nav-logo">
+    <a class="navbar-brand" href="{% url 'main' %}">Efimchik Datasets</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'datasets' %}"> MY DATASETS <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'explore' %}"> EXPLORE <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'auth' %}">
+            <button class="btn btn-outline-success my-2 my-sm-0">
+                Log in
+            </button>
+        </a>
+        {% else %}
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                {{user.username}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+<footer class="foot">
+</footer>
+
+</body>
+</html>

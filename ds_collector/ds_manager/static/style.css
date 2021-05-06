@@ -1,0 +1,42 @@
+.nav-logo {
+    width: 3%;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.main-form {
+    position: relative;
+    left: auto;
+    right: auto;
+    background-color: yellow;
+    margin: 2% 30%;
+    padding: 15px;
+    border-radius: 5px;
+    border-radius: 5px;
+}
+
+.ds-thumbnail {
+    width: 20%;
+    height: 100pt;
+    background-color: grey;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 20px;
+    margin: 20px 34px;
+}
+
+.datasets-table {
+    position: relative;
+    left: auto;
+    right: auto;
+    margin: 2%;
+    width: 96%;
+}
+
+.datasets-table thead {
+    background-color: black;
+    color: aliceblue;
+    font-weight: bold;
+}

@@ -1,0 +1,37 @@
+{% extends 'ds_manager/wrapper.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+{% block content %}
+{% if not user.is_authenticated %}
+<form method="post" action="{% url 'login' %}" class="main-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Login</label>
+        {% render_field form.username class+="form-control"%}
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        {% render_field form.password class+="form-control"%}
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<form method="post" action="{% url 'register' %}" class="main-form">
+{% csrf_token %}
+{% for i in user_form %}
+	<label>{{ i.label }}</label>
+	{% render_field i class+="form-control" %}
+	<br>
+{% endfor %}
+<input type="submit" value="register" />
+<input type="hidden" name="next" value="{% url 'main' %}" />
+</form>
+
+
+{% endif %}
+
+{% endblock %}

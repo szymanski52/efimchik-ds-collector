@@ -1,0 +1,43 @@
+{% extends 'ds_manager/wrapper.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+{% block content %}
+<h3>Recently viewed:</h3>
+<div class="thumbnails">
+    <div class="thumbnail ds-thumbnail">DataSet 1</div>
+    <div class="thumbnail ds-thumbnail">DataSet 2</div>
+    <div class="thumbnail ds-thumbnail">DataSet 3</div>
+    <div class="thumbnail ds-thumbnail">DataSet 4</div>
+</div>
+<table class="datasets-table">
+    <caption>My datasets</caption>
+    <thead>
+        <td>Name</td>
+        <td>Access</td>
+        <td>Size</td>
+        <td>Last modified</td>
+    </thead>
+    {% for row in datasets %}
+    <tr>
+        <td><a href="{% url 'dataset' row.id %}">{{ row.title }}</td>
+        <td>{{ row.description }}</td>
+        <td><img src="efimchik-ds-collector/ds_collector/{{ row.cover }}"></td>
+        <td>05.05.2021</td>
+    </tr>
+    {% endfor %}
+</table>
+<form enctype="multipart/form-data" method="post" action="{% url 'upload' %}" class="main-form" id="upload_form">
+    {% csrf_token %}
+    <label>Project title</label>
+    {% render_field upload_form.title class+="form-control" %}
+    <label>Description</label>
+
+    {% render_field upload_form.description class+="form-control" %}
+    <label>Cover</label>
+    {% render_field upload_form.cover class+="form-control" %}
+    <label>Upload csv-file</label>
+    {% render_field upload_form.csv_file class+="btn" %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
