@@ -1,9 +1,10 @@
 1. Функциональные детали описаны на диаграмме прецедентов, представленной ниже:
 ![image](https://user-images.githubusercontent.com/44303944/120710326-b2f68080-c4c6-11eb-8606-cc57a764026c.png)
-
+<br />
 и на диаграмме активностей, представленной ниже:
-![image](https://user-images.githubusercontent.com/44303944/120710391-c3a6f680-c4c6-11eb-8c88-1eb321a0b741.png)
 
+![image](https://user-images.githubusercontent.com/44303944/120710391-c3a6f680-c4c6-11eb-8c88-1eb321a0b741.png)
+<br />
 2. Структура проекта описана на диаграмме классов, представленной ниже:
 ![image](https://user-images.githubusercontent.com/44303944/120710427-cace0480-c4c6-11eb-808a-89e2070623af.png)
 3. Этапы:
