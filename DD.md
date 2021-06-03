@@ -1,9 +1,11 @@
 1. Функциональные детали описаны на диаграмме прецедентов, представленной ниже:
-![Usecase](https://drive.google.com/file/d/1HSeMM0WFd3qGRXpAmgd1GwLSOcE3EkXg/view?usp=sharing)
+![image](https://user-images.githubusercontent.com/44303944/120710326-b2f68080-c4c6-11eb-8606-cc57a764026c.png)
+
 и на диаграмме активностей, представленной ниже:
-![Activity](https://drive.google.com/file/d/1nueRIw9RtgOHEikFL3TcVQ3WDxBCgvoP/view?usp=sharing)
+![image](https://user-images.githubusercontent.com/44303944/120710391-c3a6f680-c4c6-11eb-8c88-1eb321a0b741.png)
+
 2. Структура проекта описана на диаграмме классов, представленной ниже:
-![Classes](https://drive.google.com/file/d/1uy8VtKZX77QhkjTPZ_NYQ7G5EBjqNITz/view?usp=sharing)
+![image](https://user-images.githubusercontent.com/44303944/120710427-cace0480-c4c6-11eb-808a-89e2070623af.png)
 3. Этапы:
   - Создание скелета сайта - 4 июня
   - Интерфейс работы с датасетами - 7 июня
