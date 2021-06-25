@@ -1,6 +1,15 @@
 {% extends 'ds_manager/wrapper.html' %}
 {% load static %}
 {% load bootstrap4 %}
+
 {% block content %}
-    explore community datasets
+{% for i in public %}
+    <a href="{% url 'dataset' i.id %}">
+        <div class="explore_ds" style="background-image: url('{{i.cover}}');">
+            <h1 class="title">{{i.title}}</h1>
+            <p class="desc">{{i.description}}</p>
+            <p class="author">Author: {{i.user.username}}</p>
+        </div>
+        </a>
+{% endfor %}
 {% endblock %}

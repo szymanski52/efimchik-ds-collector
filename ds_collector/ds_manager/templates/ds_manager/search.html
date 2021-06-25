@@ -1,0 +1,10 @@
+{% extends 'ds_manager/wrapper.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+<ul>
+{% for i in users %}
+    <li>{{ i.username }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

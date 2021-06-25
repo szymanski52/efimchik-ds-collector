@@ -22,3 +22,7 @@ class DataSetUploadForm(forms.ModelForm):
     class Meta:
         model = DataSet
         fields = ('title', 'description', 'cover', 'csv_file')
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=200)

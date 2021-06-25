@@ -40,3 +40,18 @@
     color: aliceblue;
     font-weight: bold;
 }
+
+.dataset-cover {
+    position: relative;
+    left: auto;
+    right: auto;
+    height: 100pt;
+    margin: 5%;
+    width: 90%;
+    align-content: flex-end;
+    color: white;
+    font-weight: bold;
+    font-size: 30pt;
+    background-size: cover;
+    background-position-y: center;
+}

@@ -2,5 +2,42 @@
 {% load static %}
 {% load bootstrap4 %}
 {% block content %}
-    explore community datasets
+
+{% with cover_img=ds_info.cover %}
+<div class="dataset-cover" style="background-image: url('{{ cover }}')">
+    {{ ds_info.title }}
+    <a href="{% url 'download' ds_info.id %}"><button id='download' class="btn btn-success">Download</button></a>
+</div>
+{% endwith %}
+<h2>About</h2>
+<p>{{ ds_info.description }}</p>
+<h2>Dataset <a href="{% url 'edit_ds' ds_info.id %}"><button class="btn btn-dark">Edit</button></a></h2>
+{% if message %}
+<p>{{ message }}</p>
+{% else %}
+<table class="table">
+    <thead class="table-dark">
+        {% for cell in data.columns %}
+        <td><b>{{ cell }}</b></td>
+        {% endfor %}
+    </thead>
+    {% for row in data.values %}
+        <tr>
+            {% for cell in row %}
+                <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<ul>
+    {% for folder, files_i in files.items %}
+        <li>{{folder.title}}</li>
+        <ul>
+            {% for file in files_i %}
+                <li> {{file.title}} </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

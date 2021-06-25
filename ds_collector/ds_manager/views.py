@@ -1,7 +1,13 @@
+import pandas as pd
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegistrationForm, DataSetUploadForm
-from .models import DataSet
+from django.utils.encoding import smart_str
+
+from .forms import UserRegistrationForm, DataSetUploadForm, SearchForm
+from .models import DataSet, UserFollowing
+import os
 
 
 def render_main(request):
@@ -16,8 +22,24 @@ def render_datasets(request):
     return render(request, 'ds_manager/datasets.html', context)
 
 
+def download_dataset(request, ds_id):
+    ds = DataSet.objects.get(pk = ds_id)
+    path_to_file = ds.csv_file
+
+    response = HttpResponse(content_type='application/force-download')
+    print(ds.csv_file)
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(ds.csv_file)
+    response['X-Sendfile'] = smart_str(path_to_file)
+    return response
+
+
 def render_explore(request):
-    return render(request, 'ds_manager/explore.html')
+    context = {}
+    public_datasets = DataSet.objects.filter(access=1)
+    for i in public_datasets:
+        i.cover = i.cover.url[11:]
+    context['public'] = public_datasets
+    return render(request, 'ds_manager/explore.html', context)
 
 
 def render_auth(request):
@@ -28,11 +50,48 @@ def render_auth(request):
 
 
 def render_dataset(request, ds_id):
-    return render(request, 'ds_manager/dataset.html')
+    context = {}
+    ds_info = DataSet.objects.get(id=ds_id)
+    cover = ds_info.cover.url[11:]
+    context['ds_info'] = ds_info
+    context['cover'] = cover
+    try:
+        data = pd.read_csv('.' + ds_info.csv_file.url)
+        context['data'] = data.head()
+    except pd.errors.ParserError:
+        error = 'Unable to process the data'
+        context['message'] = error
+    return render(request, 'ds_manager/dataset.html', context)
+
+
+def edit_dataset(request, ds_id):
+    context = {}
+    ds_info = DataSet.objects.get(id=ds_id)
+    cover = ds_info.cover.url[11:]
+    context['ds_info'] = ds_info
+    context['cover'] = cover
+    try:
+        data = pd.read_csv('.' + ds_info.csv_file.url)
+        context['data'] = data
+    except pd.errors.ParserError:
+        error = 'Unable to process the data'
+        context['message'] = error
+    return render(request, 'ds_manager/edit_ds.html', context)
 
 
 def render_profile(request):
-    return render(request, 'ds_manager/profile.html')
+    context = {}
+
+    return render(request, 'ds_manager/profile.html', context)
+
+
+def search(request):
+    context = {}
+    if request.method == 'POST':
+        search_form = SearchForm(request.POST)
+        users = User.objects.filter(username=search_form['query'].value())
+        context['users'] = users
+    return render(request, 'ds_manager/search.html', context)
 
 
 def upload_dataset(request):
@@ -43,8 +102,6 @@ def upload_dataset(request):
             new_ds = upload_form.save(commit=False)
             new_ds.user_id = request.user.id
             new_ds.save()
-        else:
-            print('ERRORS:', upload_form.errors)
     else:
         upload_form = DataSetUploadForm()
     context['upload_form'] = upload_form
